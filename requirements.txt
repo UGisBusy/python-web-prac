@@ -1,3 +1,6 @@
 Django
 Psycopg 
 numpy
+
+# if venv:
+# psycopg2-binary

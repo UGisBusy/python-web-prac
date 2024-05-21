@@ -7,6 +7,8 @@ services:
       - .env
     ports:
       - "${DJANGO_PORT}:${DJANGO_PORT}"
+    volumes:
+      - ./:/app
     depends_on:
       - postgres
     command: python mysite/manage.py runserver 0.0.0.0:${DJANGO_PORT}
@@ -21,7 +23,11 @@ services:
       - postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
